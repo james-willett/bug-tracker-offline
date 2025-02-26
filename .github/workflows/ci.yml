@@ -2,8 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
-
+    branches:
+      - main
+      - 8.1-ExecuteBackendUnitTests
   workflow_dispatch:
 
 jobs:
