@@ -69,7 +69,7 @@ describe("AddBugModal", () => {
 
     expect(titleInput).toHaveValue("New Bug");
     expect(descriptionInput).toHaveValue("New Description");
-    expect(prioritySelect).toHaveValue("Lowxxx");
+    expect(prioritySelect).toHaveValue("Low");
   });
 
   it("should not submit form with empty required fields", async () => {
