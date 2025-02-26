@@ -11,6 +11,7 @@ playwright/.cache/
 tests-perf/test-results/*
 tests-perf/perf-results.html
 bugtracker-backend/report.xml
+bugtracker-backend/coverage*
 
 # Dependencies
 node_modules/
