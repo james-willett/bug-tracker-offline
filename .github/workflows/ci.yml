@@ -31,6 +31,12 @@ jobs:
           go test -json -coverprofile=coverage.out -covermode=atomic ./...
           go tool cover -func=coverage.out > coverage.txt
 
+          # This makes the coverage report available in the GitHub Actions UI
+          echo "## Go Test Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat coverage.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
           go test -v ./... 2>&1 | go-junit-report > test-results.xml
 
       - name: Publish backend test results
