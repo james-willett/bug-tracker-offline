@@ -18,3 +18,10 @@ primary_region = 'lhr'
 
 [[vm]]
   size = 'shared-cpu-1x'
+
+[mounts]
+  source = "bugtracker_data"
+  destination = "/data"
+
+[env]
+  DB_PATH = "/data/bugs.db"
