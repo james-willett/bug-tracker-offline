@@ -206,6 +206,22 @@ jobs:
           path: ./tests-e2e/playwright-report/
           retention-days: 30
 
+      - name: Upload Performance Raw Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: performance-raw-results
+          path: summary.json
+          retention-days: 30
+
+      - name: Upload Performance HTML Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: performance-report
+          path: perf-results.html
+          retention-days: 30
+
       - name: Publish API Test Results
         uses: dorny/test-reporter@v1
         if: always()
