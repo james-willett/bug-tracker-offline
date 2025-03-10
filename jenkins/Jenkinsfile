@@ -217,9 +217,8 @@ pipeline {
             }
             steps {
                 dir('tests-e2e') {
-                    sh '''
-                        npx playwright test
-                    '''
+                    sh 'npm ci'
+                    sh 'npx playwright test'
                 }
             }
             post {
