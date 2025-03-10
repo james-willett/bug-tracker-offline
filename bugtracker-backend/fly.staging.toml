@@ -1,0 +1,27 @@
+# fly.toml app configuration file generated for bugtracker-backend-jameswillett2 on 2025-03-08T06:55:32Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'bugtracker-backend-staging-jameswillett2'
+primary_region = 'lhr'
+
+[build]
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  size = 'shared-cpu-1x'
+
+[mounts]
+  source = "bugtracker_data"
+  destination = "/data"
+
+[env]
+  DB_PATH = "/data/bugs.db"
