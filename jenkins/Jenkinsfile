@@ -161,11 +161,11 @@ pipeline {
         }
 
         stage('Deploy Staging') {
-            // when {
-            //     expression {
-            //         return env.GIT_BRANCH == 'origin/main'
-            //     }
-            // }
+            when {
+                expression {
+                    return env.GIT_BRANCH == 'origin/main'
+                }
+            }
             environment {
                 FLY_API_TOKEN = credentials('FLY_API_TOKEN')
                 FLYCTL_INSTALL = "${env.WORKSPACE.replaceAll(' ', '')}/.fly"
@@ -200,11 +200,11 @@ pipeline {
         }
 
         stage('Post-Deployment Tests') {
-            // when {
-            //     expression {
-            //         return env.GIT_BRANCH == 'origin/main'
-            //     }
-            // }
+            when {
+                expression {
+                    return env.GIT_BRANCH == 'origin/main'
+                }
+            }
             agent {
                 docker {
                     image 'mcr.microsoft.com/playwright:v1.50.0-jammy'
@@ -237,11 +237,11 @@ pipeline {
         }
 
         stage('Deploy Production') {
-            // when {
-            //     expression {
-            //         return env.GIT_BRANCH == 'origin/main'
-            //     }
-            // }
+            when {
+                expression {
+                    return env.GIT_BRANCH == 'origin/main'
+                }
+            }
             environment {
                 FLY_API_TOKEN = credentials('FLY_API_TOKEN')
                 FLYCTL_INSTALL = "${env.WORKSPACE.replaceAll(' ', '')}/.fly"
