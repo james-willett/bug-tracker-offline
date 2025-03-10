@@ -200,43 +200,43 @@ pipeline {
         }
     }
 
-    stage('Post-Deployment Tests') {
-        // when {
-        //     expression {
-        //         return env.GIT_BRANCH == 'origin/main'
-        //     }
-        // }
-        agent {
-            docker {
-                image 'mcr.microsoft.com/playwright:v1.50.0-jammy'
-                args '-u root'
+        stage('Post-Deployment Tests') {
+            // when {
+            //     expression {
+            //         return env.GIT_BRANCH == 'origin/main'
+            //     }
+            // }
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/playwright:v1.50.0-jammy'
+                    args '-u root'
+                }
+            }
+            environment {
+                PLAYWRIGHT_TEST_BASE_URL = 'https://bugtracker-staging-jameswillett2.fly.dev'
+                CI = '1'
+            }
+            steps {
+                dir('tests') {
+                    sh '''
+                        npx playwright test integration.spec.ts
+                    '''
+                }
+            }
+            post {
+                always {
+                    junit 'tests/test-results/results.xml'
+                    publishHTML target: [
+                        allowMissing: true,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'tests/playwright-report',
+                        reportFiles: 'index.html',
+                        reportName: 'Post-Deployment Test Report'
+                    ]
+                }
             }
         }
-        environment {
-            PLAYWRIGHT_TEST_BASE_URL = 'https://bugtracker-staging-jameswillett2.fly.dev'
-            CI = '1'
-        }
-        steps {
-            dir('tests') {
-                sh '''
-                    npx playwright test integration.spec.ts
-                '''
-            }
-        }
-        post {
-            always {
-                junit 'tests/test-results/results.xml'
-                publishHTML target: [
-                    allowMissing: true,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'tests/playwright-report',
-                    reportFiles: 'index.html',
-                    reportName: 'Post-Deployment Test Report'
-                ]
-            }
-        }
-    }
 
 
     post {
