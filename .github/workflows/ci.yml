@@ -251,8 +251,8 @@ jobs:
 
       - name: Deploy Backend
         working-directory: ./bugtracker-backend
-        run: fly deploy -c fly.staging.toml --remote-only
+        run: flyctl deploy -c fly.staging.toml --remote-only
 
       - name: Deploy Frontend
         working-directory: ./bugtracker-frontend
-        run: fly deploy -c fly.staging.toml --remote-only
+        run: flyctl deploy -c fly.staging.toml --remote-only
