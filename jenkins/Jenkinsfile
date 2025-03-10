@@ -216,20 +216,20 @@ pipeline {
                 CI = '1'
             }
             steps {
-                dir('tests') {
+                dir('tests-e2e') {
                     sh '''
-                        npx playwright test integration.spec.ts
+                        npx playwright test
                     '''
                 }
             }
             post {
                 always {
-                    junit 'tests/test-results/results.xml'
+                    junit 'tests-e2e/test-results/results.xml'
                     publishHTML target: [
                         allowMissing: true,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
-                        reportDir: 'tests/playwright-report',
+                        reportDir: 'tests-e2e/playwright-report',
                         reportFiles: 'index.html',
                         reportName: 'Post-Deployment Test Report'
                     ]
